@@ -19,3 +19,7 @@
 - HTML
 - CSS
 - JavaScript
+## Instalación
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/tuusuario/amigo-secreto.git
