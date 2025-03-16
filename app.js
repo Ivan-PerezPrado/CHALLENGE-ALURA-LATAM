@@ -1,23 +1,35 @@
-//PASO 1 crear array para guardar los nombres de los amigos 
-let amigos = [];
-/*PASO 2 crear f para agragarlos
-a-capturar el valor de ingreso
-b-comprobar que no este vacio
-c-mostrar los nombre en la lista
-d-limpiar el input*/
-function agregarAmigo() {
-    let input = document.getElementById("amigo"); //capturar nombre
-    let nombre = input.value.trim();//obtener el valor ingresado
 
-    if (nombre === "") {//validar que se ingrese un nombre
+// PASO 1: Crear array para guardar los nombres de los amigos 
+let amigos = [];
+
+// PASO 2: Función para agregar amigos
+function agregarAmigo() {
+    let input = document.getElementById("amigo"); // Capturar el nombre ingresado
+    let nombre = input.value.trim(); // Eliminar espacios en blanco al inicio y al final
+    let nombreLowerCase = nombre.toLowerCase(); // Convertir a minúsculas para evitar duplicados
+    let regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // Expresión regular para permitir solo letras y espacios
+
+    if (nombre === "") { // Validar que el campo no esté vacío
         alert("POR FAVOR, INSERTE UN NOMBRE");
         return;
     }
-    amigos.push(nombre); //Para agregar los nombres a la lista
+
+    if (!regex.test(nombre)) { // Verificar que el nombre solo contenga letras y espacios
+        alert("El nombre solo puede contener letras y espacios.");
+        return;
+    }
+
+    if (amigos.includes(nombreLowerCase)) { // Verificar si el nombre ya existe en la lista
+        alert("Este nombre ya ha sido ingresado.");
+        return;
+    }
+
+    amigos.push(nombreLowerCase); // Agregar el nombre al array
     mostrarListaAmigos();
-    input.value = ""; //Limpiar el input
+    input.value = ""; // Limpiar el input
 }
 
+// Función para mostrar la lista de amigos
 function mostrarListaAmigos() {
     let lista = document.getElementById("listaAmigos"); // Obtener la lista de amigos
     lista.innerHTML = ""; // Limpiar la lista antes de actualizarla
@@ -36,9 +48,9 @@ function sortearAmigo() {
         return;
     }
 
-    let indiceAleatorio = Math.floor(Math.random() * amigos.length); //Obtener índice aleatorio
-    let amigoSorteado = amigos[indiceAleatorio]; //Obtener nombre sorteado
+    let indiceAleatorio = Math.floor(Math.random() * amigos.length); // Obtener índice aleatorio
+    let amigoSorteado = amigos[indiceAleatorio]; // Obtener nombre sorteado
 
     let resultado = document.getElementById("resultado");
-    resultado.innerHTML = `<li>${amigoSorteado} es el amigo secreto </li>`; //Mostrar resultado
+    resultado.innerHTML = `<li>${amigoSorteado} es el amigo secreto</li>`; // Mostrar resultado
 }
